@@ -10,7 +10,7 @@ int main() {
   int status, i;
   pid_t pid[N+1];
 
-  for (i=0; i<N; i++) 
+  for (i=0; i<N; i++)
     if ((pid[i] = fork()) == 0) /*fils*/
       exit(100+i);
 

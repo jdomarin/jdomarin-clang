@@ -9,36 +9,36 @@
 int initialisation(){
   int i;
   int j;
-  
+
   for(i = 0;i<5;i++)
     for(j = 0;j<5;j++)
       plateau[i][j] = NULL;
-  
+
   for(i = 1; i<4;i++){
     pieces[i].type = PION;
     pieces[i].couleur = NOIR;
     pieces[i].zone = ENJEU;
     pieces[i].position.ligne = 0;
     pieces[i].position.colonne = i;
-    
+
     plateau[0][i] = pieces+i;
   }//pions blancs
-  
+
   for(i = 0; i<2;i++){
     pieces[4*i].type = PION;
     pieces[4*i].couleur = NOIR;
     pieces[4*i].zone = ENJEU;
     pieces[4*i].position.ligne = 1;
     pieces[4*i].position.colonne = 4*i;
-    
+
     plateau[1][4*i] = pieces+4*i;
-    
+
     pieces[i+5].type = CAVALIER;
     pieces[i+5].couleur = NOIR;
     pieces[i+5].zone = ENJEU;
     pieces[i+5].position.ligne = 0;
     pieces[i+5].position.colonne = i*4;
-    
+
     plateau[0][i*4] = pieces+i+5;
   }//cavaliers blancs
 
@@ -48,7 +48,7 @@ int initialisation(){
     pieces[i+7].zone = ENJEU;
     pieces[i+7].position.ligne = 4;
     pieces[i+7].position.colonne = i;
-    
+
     plateau[4][i] = pieces+i+7;
   }//pions noirs
   for(i = 0; i<2;i++){
@@ -57,15 +57,15 @@ int initialisation(){
     pieces[4*i+7].zone = ENJEU;
     pieces[4*i+7].position.ligne = 3;
     pieces[4*i+7].position.colonne = 4*i;
-    
+
     plateau[3][4*i] = pieces+4*i+7;
-    
+
     pieces[i+12].type = CAVALIER;
     pieces[i+12].couleur = BLANC;
     pieces[i+12].zone = ENJEU;
     pieces[i+12].position.ligne = 4;
     pieces[i+12].position.colonne = i*4;
-    
+
     plateau[4][i*4] = pieces+i+12;
   }//cavaliers noirs
   return 1;
@@ -97,10 +97,10 @@ int chargement(char* fich){
       i++;
     }
     if(i!=14){
-      printf("Une erreur est survenu : nombre de piece incorrect\nTrouvee %d Attendu 14\n",i);
+      printf("Une erreur est survenue : nombre de piece incorrect\nTrouvee %d Attendu 14\n",i);
       return 0;
     }
-    
+
     int ni,mi,nf,mf;
     premierTour = NULL;
     tourCourant = NULL;
@@ -128,7 +128,7 @@ int chargement(char* fich){
       (*tourCourant).noir.final.colonne = mf;
       (*tourCourant).promotionNoir.ligne = n;
       (*tourCourant).promotionNoir.colonne = m;
-      
+
       ni = chtoc(p[11]);
       mi = ltoc(p[10]);
       nf = chtoc(p[14]);
@@ -141,9 +141,9 @@ int chargement(char* fich){
       (*tourCourant).blanc.final.colonne = mf;
       (*tourCourant).promotionBlanc.ligne = n;
       (*tourCourant).promotionBlanc.colonne = m;
-      
+
       (*tourCourant).etat = faitTourCourant();
-            
+
       fscanf(fin,"%s",p);
       if(!feof(fin)){
 	(*tourCourant).tourSuivant = (struct Tour*) malloc(sizeof(struct Tour));

@@ -1,6 +1,6 @@
 /*
 Bouton
-Description : 
+Description :
 x0 : abscisse de l'origine du bouton (en bas à gauche)
 y0 : ordonnée de l'origine du bouton
 longueur : longueur du bouton (horizontale)

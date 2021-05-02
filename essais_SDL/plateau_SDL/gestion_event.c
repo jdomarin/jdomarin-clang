@@ -16,12 +16,10 @@ int main(int argc, char** argv){
   ecran = SDL_SetVideoMode(XRES, YRES, BPP, SDL_HWSURFACE);
   SDL_WM_SetCaption("Gestion des événements en SDL", NULL);
 
-  
-
   //la boucle principale : gestion des cas en fonction de la touche pressée
  while(continuer){
    SDL_WaitEvent(&event); //attendre événement
-  
+
   switch(event.type){
     case SDL_QUIT:
       continuer = 0;

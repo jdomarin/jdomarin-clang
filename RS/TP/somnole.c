@@ -13,5 +13,5 @@ void somnole(int n) {
 int main(int argc, char **argv) {
   somnole(atoi(argv[1]));
 
-  return 0; 
+  return 0;
 }

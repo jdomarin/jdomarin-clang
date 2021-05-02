@@ -32,7 +32,7 @@ void calcul(int jour, int mois, int annee)
 	if(mois < mdn)
 	{
 		mres = mois + NUM_MOIS - mdn;
-		if(jour < jdn) 
+		if(jour < jdn)
 			mres--;
 	}
 	else if(mois == mdn)
@@ -60,7 +60,7 @@ void calcul(int jour, int mois, int annee)
 		}
 	}
 	else if (between_months(4,5) || between_months(6,7) || between_months(9,10) || between_months(11,12)) 
-	{	// 24 avril-23 mai; 24 juin-23 juillet; 24 sept-23 oct; 24 nov-23 déc  
+	{	// 24 avril-23 mai; 24 juin-23 juillet; 24 sept-23 oct; 24 nov-23 déc
 		jres = QUANTIEME(NUM_JOURS_MAX - 1);
 	}
 	else

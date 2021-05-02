@@ -4,9 +4,9 @@
 #define NUM_THREADS 3
 
 void *travail(void *null) {
-  int i; 
+  int i;
   double result = 0.0;
-  for (i = 0; i < 1000000 ; i++) 
+  for (i = 0; i < 1000000 ; i++)
     result = result + (double)random();
   printf("Resultat = %e\n", result);
   pthread_exit((void *) 0);

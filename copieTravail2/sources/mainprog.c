@@ -6,7 +6,7 @@
 int main(int argc, char** argv){
   int b;
   b = initPartieTerm();
-  if(b)  
+  if(b)
     partieTerm();
   freeHist(premierTour);
   return 0;

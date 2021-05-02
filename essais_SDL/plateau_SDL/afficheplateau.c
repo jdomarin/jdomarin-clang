@@ -12,26 +12,26 @@ SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
 SDL_Surface *load_image(char* filename) {
- 
-  SDL_Surface* loadedImage = NULL;
-  SDL_Surface* optimizedImage = NULL; 
-  
-  loadedImage = IMG_Load(filename); 
 
-  if(loadedImage != NULL) 
-{
-  optimizedImage = SDL_DisplayFormat(loadedImage);
-  SDL_FreeSurface(loadedImage);
- } 
+  SDL_Surface* loadedImage = NULL;
+  SDL_Surface* optimizedImage = NULL;
+
+  loadedImage = IMG_Load(filename);
+
+  if(loadedImage != NULL)
+  {
+    optimizedImage = SDL_DisplayFormat(loadedImage);
+    SDL_FreeSurface(loadedImage);
+  }
   return optimizedImage;
 }
 
-void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
-  SDL_Rect offset; 
-  offset.x = x; 
-  offset.y = y; 
-  SDL_BlitSurface(source, NULL, destination, &offset); 
-} 
+void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) {
+  SDL_Rect offset;
+  offset.x = x;
+  offset.y = y;
+  SDL_BlitSurface(source, NULL, destination, &offset);
+}
 
 
 int main (int argc, char **argv) {
@@ -49,7 +49,7 @@ int main (int argc, char **argv) {
    //mettre l'entête de fichier au-dessus de l'écran
    SDL_WM_SetCaption("Plateau de jeu de dames anglaises", NULL);
    plateau = load_image("plateau.jpg" );
-   background = load_image("background.bmp"); 
+   background = load_image("background.bmp");
 
    apply_surface(0, 0, background, screen);
    apply_surface(320, 0, background, screen);
@@ -60,7 +60,7 @@ int main (int argc, char **argv) {
 
    if(SDL_Flip(screen) == -1)
      return 1;
-   
+
    SDL_Delay(5000);
    SDL_FreeSurface(plateau);
    SDL_FreeSurface(background);

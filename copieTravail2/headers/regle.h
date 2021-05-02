@@ -53,14 +53,14 @@ int estvalidedeplacement(struct Deplacement d);
 void deplacement(struct Deplacement coupblanc,struct Deplacement coupnoir);
 
 
-/* Description : Effectue la promotion des pions concernés 
+/* Description : Effectue la promotion des pions concernés
    paramètre : Aucun
    précondition : Le plateau est valide
    postcondition : Il n'y a plus de pion coincé en bout de plateau
 */
 void promotionDuPion();
 
-/* Description : Constate et renvoie l'état du jeu 
+/* Description : Constate et renvoie l'état du jeu
    paramètre : Aucun
    précondition : Le plateau est valide
    variable retournée : LeJeuContinue -> Tant que la partie n'est pas fini
@@ -71,7 +71,7 @@ void promotionDuPion();
 enum Etat estFini();
 
 
-/* Description : Applique les règles basées sur l'état du jeu (promotion du pion et fin du jeu) 
+/* Description : Applique les règles basées sur l'état du jeu (promotion du pion et fin du jeu)
    paramètre : Aucun
    précondition : Le plateau est valide
    variable retournée : LeJeuContinue -> Tant que la partie n'est pas fini
@@ -81,7 +81,7 @@ enum Etat estFini();
 */
 enum Etat regleDEtat();
 
-/* Description : Effectue la promotion des pions concernés 
+/* Description : Effectue la promotion des pions concernés
    paramètre : Aucun
    précondition : Le plateau est valide
                   Les champs de *tourCourant sont renseignés correctement

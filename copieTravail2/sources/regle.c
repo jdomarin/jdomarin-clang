@@ -125,7 +125,7 @@ int estlibreouoccupeparadversaire(struct Position pos, enum Couleur macouleur){
         (*pieceblanc).position = coupblanc.final;
 //affichepiece(plateau[1][2]);printf(" --\n");
     }
- 
+
  }
 
 
@@ -296,17 +296,16 @@ void promotionDuPionCourant(){
       }
     }
   }
-	
 }
 
 enum Etat faitTourCourant(){
   deplacement((*tourCourant).blanc,(*tourCourant).noir);
   promotionDuPionCourant();
-  return estFini(); 
+  return estFini();
 }
 
 enum Etat faitTourTerm(){
   deplacement((*tourCourant).blanc,(*tourCourant).noir);
   promotionDuPionTerm();
-  return estFini(); 
+  return estFini();
 }

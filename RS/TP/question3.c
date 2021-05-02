@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main() {
-  if(fork() || fork()) 
+  if(fork() || fork())
     fork();
   printf("plop!\n");
   exit(0);

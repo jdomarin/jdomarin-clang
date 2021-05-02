@@ -56,7 +56,7 @@ void afficheetat(enum Etat e){
   }
   tmp[2] = '\0';
   printf(".%s",tmp);
-  
+
  } // affiche une piece
 
  void afficheplateau(){
@@ -91,14 +91,14 @@ void afficheetat(enum Etat e){
   printf("\n");
 
  }
-// fonction de saisi des deplacements
+// fonction de saisie des deplacements
 
  void coupjoueur(enum Couleur c, struct Deplacement *coup){
   int i0,j0,iif,jf;
   char deb[3], arr[3], ans[2];
   int b;
   int bb = 0;
-  while(!bb){  
+  while(!bb){
    affichecouleur(c);
    printf(" (c pour continuer à jouer | p pour passer) \n $>");
    scanf("%s",ans);
@@ -188,7 +188,7 @@ int initPartieTerm(){
     printf("Reponse invalide");
     return 0;
   }
-  
+
 }
 
 void partieTerm(){
@@ -198,8 +198,8 @@ void partieTerm(){
   int i;
 
   afficheplateau();
- 
-  while((tourCourant == NULL || (*tourCourant).etat == LeJeuContinue) && b){  
+
+  while((tourCourant == NULL || (*tourCourant).etat == LeJeuContinue) && b){
     printf(" (c pour continuer à jouer | s pour sauvegarder la partie | q pour quitter le jeu) \n $>");
     scanf("%s",ans);
     if(ans[0] == 'q' || ans[0] == 'Q'){
@@ -211,7 +211,7 @@ void partieTerm(){
     } else if(ans[0] == 'c' || ans[0] == 'C'){
       if(premierTour == NULL){
 	premierTour = (struct Tour*) malloc(sizeof(struct Tour));
-	tourCourant = premierTour;	  
+	tourCourant = premierTour;
 	(*tourCourant).noTour = 0;
       } else {
 	(*tourCourant).tourSuivant = (struct Tour*) malloc(sizeof(struct Tour));
@@ -224,14 +224,12 @@ void partieTerm(){
       (*tourCourant).promotionNoir.colonne = -1;
       (*tourCourant).promotionBlanc.ligne = -1;
       (*tourCourant).promotionBlanc.colonne = -1;
-      
+
       coupjoueur(NOIR, &((*tourCourant).noir));
       afficheplateau();
       coupjoueur(BLANC, &((*tourCourant).blanc));
       (*tourCourant).etat = faitTourTerm();
       afficheplateau();
-      
-    
     } else {
       printf("Commande inconnue");
     }
