@@ -1,0 +1,97 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\pagestyle{headings}
+
+\title{Rapport du projet C Learning Environment}
+\author{Jérémy Domarin \and Sanaa El Haouzi \and Houssem Aloui}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Logistique}
+\subsection{Outils utilisés}
+Nous avons utilisé l'IDE Geany pour le codage et pour le fichier source qui a généré ce rapport. Le projet a été entièrement codé et fonctionne sous Linux. Nous n'avons pas modifié l'interface graphique, considérant qu'il s'agit avant tout d'un projet de système. 
+Nous avons aussi utilisé l'outil GDB pour le débogage et notre projet était versionné : nous avons crée un dépôt SVN sur la forge de l'ESIAL.
+\subsection{Temps passé}
+Jérémy Domarin : \newline
+\tabularnewline codage : \newline
+\tabularnewline tests : \newline
+\tabularnewline rapport : \newline
+ 
+Sanaa El Haouzi : \newline
+\tabularnewline codage : \newline
+\tabularnewline tests : \newline
+\tabularnewline rapport : \newline
+
+Houssem Aloui : \newline
+\tabularnewline codage : \newline 
+\tabularnewline tests : \newline
+\tabularnewline rapport : \newline
+\section{Stratégie de travail}
+Comme nous n'avons pas assez de recul en programmation système, et que le sujet du projet de cette année est assez ambitieux, nous avons pris le parti de suivre à la lettre la stratégie décrite dans le sujet.
+\subsection{Compilation}
+Dans cette partie, il faut écrire le code des élèves dans un fichier temporaire, dans lequel il doit y avoir les prototypes des fonctions que l'élève a le droit d'écrire. Après on écrit le fichier (dans /tmp) et ensuite on crée un processus qui va compiler le fichier temporaire. On fait exécuter gcc par le nouveau processus.
+
+Appels système utilisés: \newline
+	* \texttt{mkstemp}: créer un fichier temporaire; \newline
+	* \texttt{fdopen} (renvoi un pointeur vers un fichier): ouvrir le fichier temporaire à partir d'un descripteur de fichier; \newline
+	* \texttt{pipe}: créer un tube pour faire communiquer deux processus (père et fils); \newline
+	* \texttt{fork}: dupliquer les processus; \newline
+	* \texttt{close}: fermer le descipteur de fichier; \newline
+	* \texttt{dup2}: rediriger la sortie du fils vers le père; \newline
+	* \texttt{execlp}: faire exécuter gcc par le processus fils; \newline
+	* \texttt{read}: pour que le père lise la sortie d'erreur du fils; \newline
+	
+\emph{Remarque}: Dans le processus fils on exécute gcc (qui compile le fichier temporaire) et dans le père on lance un nouveau thread pour faire bouger la tortue.
+\subsection{Faire un binaire du code des élèves}
+Dans le fichier turtle\_userside.c on définit les fonctions que les élèves ont le droit d'écrire et on fait en sorte que ce code soit compilé avec le code des étudiants.
+
+Appels système utilisés: les mêmes que dans la première phase.
+\subsection{Exécution}
+Pour ce faire, nous nous sommes inspirés du code qui permet de lancer la démo, nous l'avons copié dans la méthode exercise\_run comme décrit dans le sujet.
+Dans ce code nous invoquons la fonction turtle\_set\_code qui injecte le code dans la tortue.
+Nous passons en paramètre de cette fonction, la fonction exercise\_run\_one que nous avons dû créer.
+La méthode exercise\_run\_one permet d'exécuter le code compilé à l'étape précédente (compilation).
+Nous avons utilisé les appels systèmes suivants : \texttt{fork}, \texttt{execlp}, \texttt{fdopen} plus : \newline
+* \texttt{getline} qui permet de lire un flux de commande ligne par ligne ;\newline
+* \texttt{kill} : nous en avons besoin pour implémentation du bouton stop.\newline
+\emph{Remarque}: pour le bouton stop nous avons utilisé un mutex qui assure le verrouillage de la structure de données qui stocke les pid des processus tués.
+\subsection{Interaction avec le monde}
+Nous avons effectué quelques modifications sur le fichier turtle\_userside.c et avons lancé une boucle pour lire l'affichage du processus fils. Ensuite nous appelons les fonctions simulant le comportement de la tortue dans un switch pour exécuter le bon code.\newline
+Nous avons utilisé les appels système suivants pour cette partie : \texttt{fdopen}, \texttt{getline}, \texttt{pipe}, \texttt{dup2}, \texttt{close}.
+\subsection{Finition des bases}
+Le but de cette partie est de vérifier que le monde objectif et le monde des élèves est le même en utilisant la méthode world\_eq() et afficher une fenêtre de dialogue notifiant si l'élève a réussi l'exercice ou pas.
+\subsection{Chargement des leçons}
+Dans cette partie il nous fallait compléter la fonction lesson\_from\_file du fichier lesson.c afin de charger dynamiquement les plugins qui permettent d'accéder à d'autres exercices et d'autres leçons.
+\section{Extensions}
+Nous n'avons pu implémenter les extensions faute de temps et à cause des grandes difficultés qu'ont causé la programmation du c\oe ur de l'application.
+
+\section{Difficultés rencontrées}
+Nous avons eu des difficultés à bien comprendre le sujet, qui, malgré les détails qui sont mentionnés, pouvait à certains endroits prêter à confusion. 
+Nous savions dans les grandes lignes ce qu'il fallait faire, mais ne trouvions pas les moyens techniques d'y parvenir. C'est pourquoi nous nous sommes fait aider (voir la section Remerciements).
+Durant le codage, nous avons fait face à de nombreux obstacles : erreurs de compilation, erreurs de segmentation, interface graphique ne répondant plus lorsqu'on appuie sur le bouton Run, etc.
+Nous nous sommes rendus compte en programmant que l'organisation des fichiers d'include (ceux dont les noms sont précédés de \#include) pouvait différer suivant la distribution du système d'exploitation.
+\section{Conclusion}
+
+\appendix
+\section{Remerciements}
+Nous avons utilisé les ressources des sites web suivants pour réaliser notre projet :\newline
+http://rangiroa.essi.fr/cours/systeme1/02-posix\_threads.pdf : Cours sur les threads ; \newline
+http://www.clubic.com/ : Autre site d'aide à la programmation \newline
+http://www.generation-nt.com/ : idem \newline
+http://www.cplusplus.com/reference : le site de référence du langage C et C++ ;\newline
+Le site du Zéro. \newline
+Forums d'Ubuntu, de Linux. \newline
+Le site de Comment ça marche. \newline
+La documentation en ligne de GTK. \newline
+
+Nous nous sommes fait aider par les personnes suivantes : \newline
+* Damien Schirm (ESIAL 2\ieme\ année) pour le paragraphe 3.2.4. \newline
+ 
+Nous avons réalisé ce rapport en utilisant \LaTeX.
+
+\end{document}
